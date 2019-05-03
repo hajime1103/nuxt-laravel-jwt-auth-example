@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    middleware: 'auth', //ログイン状態であればリダイレクトする
+    middleware: 'auth', //未ログイン状態であればリダイレクトする
     data() {
       return {
         queryURL: ''
@@ -27,8 +27,7 @@
       if (queryURL != '') {
         await this.$axios.$get(queryURL)
           .then(data => {
-
-            this.$auth.fetchUser();
+            this.$auth.fetchUser();             // メール認証が完了したため、ユーザ情報を再取得する
             this.$router.push({name: 'index'});
           })
           .catch(err => {

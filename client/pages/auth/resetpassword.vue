@@ -45,10 +45,10 @@
     data() {
       return {
         form: {
-          email: '',
-          password: '',
-          password_confirmation: '',
-          token: ''
+          email: '',                  // リセット対象のメールアドレス
+          password: '',               // 新しいパスワード
+          password_confirmation: '',  // 新しいパスワード確認
+          token: ''                   // パスワードリセット実行するための一時的なトークン
         },
         requestUrl: ''
       }
@@ -69,8 +69,8 @@
           });
       },
       setQuery() { // getリクエストのパラメータを取得する関数
-        this.requestUrl = this.$route.query.queryURL || '';
-        this.form.token = this.$route.query.token || '';
+        this.requestUrl = this.$route.query.queryURL || ''; // パスワードリセットAPIのURL
+        this.form.token = this.$route.query.token || '';    // パスワードリセットするために必要なToken
       },
     }
 

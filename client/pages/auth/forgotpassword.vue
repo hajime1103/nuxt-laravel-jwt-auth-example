@@ -6,8 +6,8 @@
           <p class="mb-0">ForgotPassword</p>
         </div>
         <div class="card-body">
-          <b-alert variant="success"　v-model="showSuccessAlert" dismissible>I have sent a password reissue email</b-alert>
-          <form @submit.prevent="ReSendVerifyEmail"> <!-- 標準のsubmitは実行しない -->
+          <b-alert variant="success"　v-model="showSuccessAlert">I have sent a password reissue email</b-alert>　<!-- パスワードリセットメールを送れたことをメッセージで表示する -->
+          <form @submit.prevent="ReSendVerifyEmail">
             <div class="form-group">
               <label>Email</label>
               <input v-model="form.email" type="email" class="form-control" :class="{ 'is-invalid': errors.email }" placeholder="Email">
@@ -25,7 +25,7 @@
 
 <script>
   export default {
-    middleware: 'guest', //ログイン状態であればリダイレクトする
+    middleware: 'guest', //ログインであればリダイレクトする
     data() {
       return {
         form: {
@@ -37,8 +37,10 @@
     },
     methods: {
       async ReSendVerifyEmail(){
+        // パスワードリセットのメール送信APIを実行する
         await this.$axios.post('/auth/password/email', this.form)
           .then(data => {
+            // 送信完了メッセージ表示
             this.showSuccessAlert = true;
 
           })
