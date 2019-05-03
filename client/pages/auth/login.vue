@@ -22,6 +22,10 @@
               </div>
             </div>
             <div class="form-group">
+              <input type="checkbox" id="checkbox" v-model="form.remember">
+              <label for="checkbox">remember me</label>
+            </div>
+            <div class="form-group">
               <input type="submit" value="Login" class="btn btn-default w-100">
               <nuxt-link class="nav-link" to="/auth/forgotpassword">Forgot Your Password</nuxt-link>
             </div>
@@ -40,7 +44,8 @@
       return {
         form: {
           email: '',
-          password: ''
+          password: '',
+          remember: false
         }
       }
     },

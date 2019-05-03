@@ -33,6 +33,10 @@
 
     methods: {
       async ReSendVerifyEmail(){
+
+        // 現在ログインしているユーザのメールを取得する
+        this.form.email = this.$auth.user.email;
+
         await this.$axios.post('/auth/email/resend', this.form)
           .then(data => {
             this.showSuccessAlert = true;

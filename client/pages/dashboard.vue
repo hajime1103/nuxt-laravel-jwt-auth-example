@@ -7,6 +7,6 @@
 <script>
   export default {
     middleware: 'auth',
-    middleware: 'emailVerify'
+    middleware: 'emailVerify',
   }
 </script>

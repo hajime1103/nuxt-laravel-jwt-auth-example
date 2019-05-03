@@ -3,7 +3,7 @@
     <div class="col-md-6 offset-md-3">
       <div class="card mt-4">
         <div class="card-header">
-          <p class="mb-0">Register</p>
+          <p class="mb-0">PasswordReset</p>
         </div>
         <div class="card-body">
           <form @submit.prevent="ResetPassword"> <!-- 標準のsubmitは実行しない -->
@@ -29,7 +29,7 @@
               </div>
             </div>
             <div class="form-group">
-              <input type="submit" value="Register" class="btn btn-default w-100">
+              <input type="submit" value="PasswordReset" class="btn btn-default w-100">
             </div>
           </form>
         </div>
