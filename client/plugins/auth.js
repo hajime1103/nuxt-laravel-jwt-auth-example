@@ -2,7 +2,6 @@
  * ユーザは認証が必要な画面からログイン画面に遷移し、ログインしたら元のみていた画面に戻りたい
  * Nuxtでは自前ではリダイレクト前のURLは保持してないので、URLのキーバリューに乗せる
  */
-
 export const isSameURL = (a, b) => a.split('?')[0] === b.split('?')[0]
 
 export const isRelativeURL = u =>

@@ -3,10 +3,10 @@
     <div class="col-md-6 offset-md-3">
       <div class="card mt-4">
         <div class="card-header">
-          <p class="mb-0">Login</p>
+          <p class="mb-0">Register</p>
         </div>
         <div class="card-body">
-          <form @submit.prevent="Login"> <!-- 標準のsubmitは実行しない -->
+          <form @submit.prevent="ResetPassword"> <!-- 標準のsubmitは実行しない -->
             <div class="form-group">
               <label>Email</label>
               <input v-model="form.email" type="email" class="form-control" :class="{ 'is-invalid': errors.email }" placeholder="Email">
@@ -22,8 +22,14 @@
               </div>
             </div>
             <div class="form-group">
-              <input type="submit" value="Login" class="btn btn-default w-100">
-              <nuxt-link class="nav-link" to="/auth/forgotpassword">Forgot Your Password</nuxt-link>
+              <label>Password Confirmation</label>
+              <input v-model="form.password_confirmation" type="password" class="form-control" :class="{ 'is-invalid': errors.password }" placeholder="Password">
+              <div class="invalid-feedback" v-if="errors.password">
+                {{ errors.password[0] }}
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Register" class="btn btn-default w-100">
             </div>
           </form>
         </div>
@@ -40,22 +46,32 @@
       return {
         form: {
           email: '',
-          password: ''
-        }
+          password: '',
+          password_confirmation: '',
+          token: ''
+        },
+        requestUrl: ''
       }
     },
+
+    created() {
+      this.setQuery()
+    },
+
     methods: {
-      async Login(){
-        await this.$auth.login({data: this.form})
+      async ResetPassword(){ // パスワードリセットリクエストを投げる関数
+        await this.$axios.$post(this.requestUrl, this.form)
           .then(data => {
-            this.$router.push(this.$router.query.redirect ? this.$router.query.redirect : '/');
+            this.$router.push('/auth/login');
           })
-          .catch(err =>{
+          .catch(err=> {
             console.log(err);
-          })
-
-
-      }
+          });
+      },
+      setQuery() { // getリクエストのパラメータを取得する関数
+        this.requestUrl = this.$route.query.queryURL || '';
+        this.form.token = this.$route.query.token || '';
+      },
     }
 
   }

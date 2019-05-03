@@ -21,9 +21,16 @@ use Illuminate\Http\Request;
 |
 */
 
+//メール送信テスト用
+Route::get('/mail/send', 'TestMailController@send');
+
 Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function (){
    Route::post('/register', 'Auth\RegisterController@register');
    Route::post('/login', 'Auth\LoginController@login');
+   Route::post("/password/email", "Auth\ForgotPasswordController@sendResetLinkEmail");
+   Route::post("/password/reset/{token}", "Auth\ResetPasswordController@reset");
+   Route::get('/email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+   Route::post('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 });
 
 Route::group(['middleware' => 'auth:api'], function (){
